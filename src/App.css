@@ -33,4 +33,19 @@ button {
   border: none;
   border-radius: .5em;
   cursor: pointer;
+  margin-right: 0.5em; /* Agregar margen entre los botones */
+}
+
+button:last-child {
+  margin-right: 0; /* Elimina el margen derecho del último botón */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container button {
+  margin-bottom: 1em; /* Margen inferior entre los botones */
 }
