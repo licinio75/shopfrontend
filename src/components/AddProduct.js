@@ -1,16 +1,16 @@
 // src/components/AddProduct.js
-import React, { useState, useContext, useEffect } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 const AddProduct = () => {
-  const [nombre, setNombre] = useState('');
-  const [descripcion, setDescripcion] = useState('');
-  const [precio, setPrecio] = useState('');
-  const [stock, setStock] = useState('');
+  const [nombre, setNombre] = useState("");
+  const [descripcion, setDescripcion] = useState("");
+  const [precio, setPrecio] = useState("");
+  const [stock, setStock] = useState("");
   const [imagen, setImagen] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
   const { user, loading } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -18,11 +18,11 @@ const AddProduct = () => {
     // Redirigir si el usuario no está logado o no es admin
     if (!loading) {
       if (!user) {
-        setErrorMessage('You must be logged in to add a product.');
-        navigate('/login');
-      } else if (!user.roles.includes('ROLE_ADMIN')) {
-        setErrorMessage('You do not have permission to add a product.');
-        navigate('/');
+        setErrorMessage("You must be logged in to add a product.");
+        navigate("/login");
+      } else if (!user.roles.includes("ROLE_ADMIN")) {
+        setErrorMessage("You do not have permission to add a product.");
+        navigate("/");
       }
     }
   }, [user, loading, navigate]);
@@ -33,30 +33,37 @@ const AddProduct = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setErrorMessage('');
+    setErrorMessage("");
 
     const formData = new FormData();
-    formData.append('imagen', imagen);
-    formData.append('nombre', nombre);
-    formData.append('descripcion', descripcion);
-    formData.append('precio', precio);
-    formData.append('stock', stock);
+    formData.append("imagen", imagen);
+    formData.append("nombre", nombre);
+    formData.append("descripcion", descripcion);
+    formData.append("precio", precio);
+    formData.append("stock", stock);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/productos/create', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/productos/create",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+          withCredentials: true,
+        }
+      );
 
-      console.log('Product added successfully:', response.data);
+      console.log("Product added successfully:", response.data);
+      navigate("/product-list", {
+        state: { message: "Product suscesfully added." },
+      });
     } catch (error) {
-      console.error('Error adding product:', error);
+      console.error("Error adding product:", error);
       if (error.response && error.response.data) {
         setErrorMessage(error.response.data);
       } else {
-        setErrorMessage('An unexpected error occurred. Please try again.');
+        setErrorMessage("An unexpected error occurred. Please try again.");
       }
     }
   };
@@ -68,7 +75,7 @@ const AddProduct = () => {
   return (
     <form onSubmit={handleSubmit}>
       <h2>Add Product</h2>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       <div>
         <label>Nombre:</label>
         <input
@@ -107,11 +114,7 @@ const AddProduct = () => {
       </div>
       <div>
         <label>Imagen:</label>
-        <input
-          type="file"
-          onChange={handleFileChange}
-          required
-        />
+        <input type="file" onChange={handleFileChange} required />
       </div>
       <button type="submit">Add Product</button>
     </form>

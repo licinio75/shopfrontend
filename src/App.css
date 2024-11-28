@@ -5,6 +5,7 @@ form {
   padding: 1em;
   border: 1px solid #ccc;
   border-radius: 1em;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añadir sombra para mejor visibilidad */
 }
 
 div {
@@ -12,32 +13,32 @@ div {
 }
 
 label {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   color: #333333;
   display: block;
 }
 
 input {
-  border: 1px solid #CCCCCC;
-  padding: .5em;
+  border: 1px solid #cccccc;
+  padding: 0.5em;
   font-size: 1em;
   width: 100%;
   box-sizing: border-box;
-  border-radius: .5em;
+  border-radius: 0.5em;
 }
 
 button {
   padding: 0.7em;
   color: #fff;
-  background-color: #007BFF;
+  background-color: #007bff;
   border: none;
-  border-radius: .5em;
+  border-radius: 0.5em;
   cursor: pointer;
-  margin-right: 0.5em; /* Agregar margen entre los botones */
+  margin-right: 0.5em; /* Añadir margen entre botones */
 }
 
 button:last-child {
-  margin-right: 0; /* Elimina el margen derecho del último botón */
+  margin-right: 0; /* Elimina margen derecho del último botón */
 }
 
 .container {
@@ -47,5 +48,58 @@ button:last-child {
 }
 
 .container button {
-  margin-bottom: 1em; /* Margen inferior entre los botones */
+  margin-bottom: 1em; /* Añadir margen inferior entre botones */
+}
+
+.message {
+  color: green;
+  text-align: center;
+  margin-bottom: 1em;
+  font-weight: bold;
+  background-color: #e7f5e6; /* Fondo verde claro */
+  padding: 0.5em;
+  border: 1px solid green;
+  border-radius: 0.5em;
+}
+
+/* src/App.css */
+.product-list {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.product-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1em;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 0.5em;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 1em;
+  border-radius: 0.5em;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-details h3 {
+  margin: 0 0 0.5em 0;
+}
+
+.product-details p {
+  margin: 0;
+  color: #555;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1em;
 }
