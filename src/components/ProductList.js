@@ -30,13 +30,21 @@ const ProductList = () => {
     fetchProducts();
   }, []);
 
+  const handleProductClick = (id) => {
+    navigate(`/product-detail/${id}`);
+  };
+
   return (
     <div className="product-list">
       {message && <p className="message">{message}</p>}
       <h2>Product List</h2>
       <ul>
         {products.map((product) => (
-          <li key={product.id} className="product-item">
+          <li
+            key={product.id}
+            className="product-item"
+            onClick={() => handleProductClick(product.id)}
+          >
             <img
               src={`data:image/jpeg;base64,${product.imagen}`}
               alt={product.nombre}

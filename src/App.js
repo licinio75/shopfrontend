@@ -10,6 +10,7 @@ import {
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ProductList from "./components/ProductList";
+import ProductDetail from "./components/ProductDetail";
 import AddProduct from "./components/AddProduct";
 import Cart from "./components/Cart";
 import RequireAuth from "./components/RequireAuth";
@@ -86,6 +87,14 @@ function App() {
             element={
               <RequireAuth>
                 <ProductList />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/product-detail/:id"
+            element={
+              <RequireAuth>
+                <ProductDetail />
               </RequireAuth>
             }
           />

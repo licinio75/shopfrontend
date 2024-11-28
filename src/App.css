@@ -1,4 +1,6 @@
 /* src/App.css */
+
+/* Estilos para los formularios */
 form {
   max-width: 500px;
   margin: 0 auto;
@@ -8,16 +10,19 @@ form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añadir sombra para mejor visibilidad */
 }
 
+/* Márgenes para los div */
 div {
   margin-bottom: 1em;
 }
 
+/* Estilos para las etiquetas */
 label {
   margin-bottom: 0.5em;
   color: #333333;
   display: block;
 }
 
+/* Estilos para los inputs */
 input {
   border: 1px solid #cccccc;
   padding: 0.5em;
@@ -27,6 +32,7 @@ input {
   border-radius: 0.5em;
 }
 
+/* Estilos para los botones */
 button {
   padding: 0.7em;
   color: #fff;
@@ -41,6 +47,7 @@ button:last-child {
   margin-right: 0; /* Elimina margen derecho del último botón */
 }
 
+/* Estilos para los contenedores */
 .container {
   display: flex;
   flex-direction: column;
@@ -51,6 +58,7 @@ button:last-child {
   margin-bottom: 1em; /* Añadir margen inferior entre botones */
 }
 
+/* Estilos para los mensajes */
 .message {
   color: green;
   text-align: center;
@@ -62,13 +70,14 @@ button:last-child {
   border-radius: 0.5em;
 }
 
-/* src/App.css */
+/* Estilos para la lista de productos */
 .product-list {
   max-width: 800px;
   margin: 0 auto;
   padding: 1em;
 }
 
+/* Estilos para cada item de producto */
 .product-item {
   display: flex;
   align-items: center;
@@ -76,8 +85,10 @@ button:last-child {
   padding: 1em;
   border: 1px solid #ccc;
   border-radius: 0.5em;
+  cursor: pointer;
 }
 
+/* Estilos para las imágenes de producto */
 .product-image {
   width: 100px;
   height: 100px;
@@ -86,6 +97,7 @@ button:last-child {
   border-radius: 0.5em;
 }
 
+/* Estilos para los detalles de producto */
 .product-details {
   flex: 1;
 }
@@ -99,7 +111,44 @@ button:last-child {
   color: #555;
 }
 
+/* Título centrado */
 h2 {
   text-align: center;
   margin-bottom: 1em;
+}
+
+/* Botón para agregar productos */
+.add-product-button {
+  display: block;
+  margin: 1em auto;
+  padding: 0.7em 1.5em;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-product-button:hover {
+  background-color: #218838;
+}
+
+/* Estilos para los detalles del producto */
+.product-detail {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1em;
+  text-align: center;
+}
+
+.product-detail img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+}
+
+.product-detail p {
+  color: #555;
+  margin: 0.5em 0;
 }
