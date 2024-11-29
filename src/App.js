@@ -1,10 +1,10 @@
-// src/App.js
 import "./App.css";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
   Routes,
+  useLocation,
   useNavigate,
 } from "react-router-dom";
 import Register from "./components/Register";
@@ -16,10 +16,18 @@ import Cart from "./components/Cart";
 import RequireAuth from "./components/RequireAuth";
 import { AuthProvider, AuthContext } from "./context/AuthContext";
 import axios from "axios";
+import Navbar from "./components/Navbar";
 
 function Home() {
   const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      // Redirigir al login si no hay usuario en sesión
+      navigate("/login");
+    }
+  }, [user, navigate]);
 
   const handleLogout = async () => {
     try {
@@ -36,86 +44,66 @@ function Home() {
   };
 
   if (!user) {
-    return (
-      <div className="container">
-        <h1>Welcome</h1>
-        <button onClick={() => (window.location.href = "/login")}>Login</button>
-        <button onClick={() => (window.location.href = "/register")}>
-          Register
-        </button>
-      </div>
-    );
-  } else if (user.roles.includes("ROLE_ADMIN")) {
-    return (
-      <div className="container">
-        <h1>Admin Dashboard</h1>
-        <button onClick={() => (window.location.href = "/product-list")}>
-          Product List
-        </button>
-        <button onClick={() => (window.location.href = "/add-product")}>
-          Add Product
-        </button>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    );
-  } else {
-    return (
-      <div className="container">
-        <h1>User Dashboard</h1>
-        <button onClick={() => (window.location.href = "/product-list")}>
-          Product List
-        </button>
-        <button onClick={() => (window.location.href = "/cart")}>
-          Shopping Cart
-        </button>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    );
+    return null;
   }
+}
+
+function AppContent() {
+  const location = useLocation();
+
+  return (
+    <div>
+      {/* Mostrar Navbar excepto en las páginas de login y registro */}
+      {!(
+        location.pathname === "/login" || location.pathname === "/register"
+      ) && <Navbar />}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route
+          path="/product-list"
+          element={
+            <RequireAuth>
+              <ProductList />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/product-detail/:id"
+          element={
+            <RequireAuth>
+              <ProductDetail />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/add-product"
+          element={
+            <RequireAuth>
+              <AddProduct />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/cart"
+          element={
+            <RequireAuth>
+              <Cart />
+            </RequireAuth>
+          }
+        />
+      </Routes>
+    </div>
+  );
 }
 
 function App() {
   return (
     <Router>
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route
-            path="/product-list"
-            element={
-              <RequireAuth>
-                <ProductList />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/product-detail/:id"
-            element={
-              <RequireAuth>
-                <ProductDetail />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/add-product"
-            element={
-              <RequireAuth>
-                <AddProduct />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path="/cart"
-            element={
-              <RequireAuth>
-                <Cart />
-              </RequireAuth>
-            }
-          />
-        </Routes>
-      </div>
+      <AuthProvider>
+        <AppContent />
+      </AuthProvider>
     </Router>
   );
 }

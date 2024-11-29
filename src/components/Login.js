@@ -64,7 +64,7 @@ function Login() {
   }
 
   return (
-    <div className="container">
+    <div className="page-container">
       {message && <p className="message">{message}</p>}
       <form onSubmit={handleSubmit}>
         <h2>Login</h2>
@@ -87,7 +87,12 @@ function Login() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <div className="button-container">
+          <button type="submit">Login</button>
+          <button type="button" onClick={() => navigate("/register")}>
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );

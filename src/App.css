@@ -1,5 +1,38 @@
 /* src/App.css */
 
+/* Estilos para el menú de navegación */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5em;
+}
+
+.navbar-link,
+.navbar-button {
+  color: white;
+  text-decoration: none;
+  padding: 0.5em 1em;
+}
+
+.navbar-link:hover,
+.navbar-button:hover {
+  background-color: #575757;
+}
+
+.navbar-button {
+  background-color: #333;
+  border: none;
+  cursor: pointer;
+}
+
+/* Contenedor general para las páginas */
+.page-container {
+  margin-top: 2em; /* Aplicar margen superior */
+  padding: 1em; /* Opcional: aplicar padding */
+}
+
 /* Estilos para los formularios */
 form {
   max-width: 500px;
@@ -32,30 +65,37 @@ input {
   border-radius: 0.5em;
 }
 
-/* Estilos para los botones */
+/* Estilos generales para los botones */
 button {
-  padding: 0.7em;
+  padding: 0.7em 1.5em;
   color: #fff;
   background-color: #007bff;
   border: none;
   border-radius: 0.5em;
   cursor: pointer;
   margin-right: 0.5em; /* Añadir margen entre botones */
+  font-size: 16px;
 }
 
 button:last-child {
   margin-right: 0; /* Elimina margen derecho del último botón */
 }
 
-/* Estilos para los contenedores */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Estilos específicos para los botones principales */
+.add-product-button,
+.back-button {
+  background-color: #007bff; /* Color de fondo común para ambos botones */
 }
 
-.container button {
-  margin-bottom: 1em; /* Añadir margen inferior entre botones */
+.add-product-button:hover,
+.back-button:hover {
+  background-color: #0056b3; /* Color de fondo al pasar el ratón */
+}
+
+/* Contenedor para los botones */
+.button-container {
+  text-align: center; /* Centrar los botones */
+  margin-top: 1em;
 }
 
 /* Estilos para los mensajes */
@@ -117,23 +157,6 @@ h2 {
   margin-bottom: 1em;
 }
 
-/* Botón para agregar productos */
-.add-product-button {
-  display: block;
-  margin: 1em auto;
-  padding: 0.7em 1.5em;
-  color: #fff;
-  background-color: #28a745;
-  border: none;
-  border-radius: 0.5em;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-.add-product-button:hover {
-  background-color: #218838;
-}
-
 /* Estilos para los detalles del producto */
 .product-detail {
   max-width: 800px;
@@ -155,7 +178,7 @@ h2 {
 
 /* src/App.css */
 .dropzone {
-  border: 2px dashed #007BFF;
+  border: 2px dashed #007bff;
   padding: 20px;
   text-align: center;
   cursor: pointer;

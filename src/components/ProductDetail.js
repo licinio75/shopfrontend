@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import Navbar from "./Navbar";
 import "../App.css";
 
 const ProductDetail = () => {
@@ -35,16 +36,18 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="product-detail">
-      <h2>{product.nombre}</h2>
-      <img
-        src={`data:image/jpeg;base64,${product.imagen}`}
-        alt={product.nombre}
-        className="product-image"
-      />
-      <p>{product.descripcion}</p>
-      <p>Price: ${product.precio}</p>
-      <p>Stock: {product.stock}</p>
+    <div>
+      <div className="product-detail">
+        <h2>{product.nombre}</h2>
+        <img
+          src={`data:image/jpeg;base64,${product.imagen}`}
+          alt={product.nombre}
+          className="product-image"
+        />
+        <p>{product.descripcion}</p>
+        <p>Price: ${product.precio}</p>
+        <p>Stock: {product.stock}</p>
+      </div>
     </div>
   );
 };
