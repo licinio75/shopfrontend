@@ -1,7 +1,7 @@
-// src/components/ProductDetail.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 import Navbar from "./Navbar";
 import "../App.css";
 
@@ -9,6 +9,9 @@ const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [cantidad, setCantidad] = useState(1); // Estado para la cantidad
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,6 +29,25 @@ const ProductDetail = () => {
 
     fetchProduct();
   }, [id]);
+
+  const handleAddToCart = async () => {
+    try {
+      await axios.post(
+        `http://localhost:8080/api/pedidos/agregar-producto?productoId=${id}&cantidad=${cantidad}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      navigate("/cart", {
+        state: { message: "Product added to cart successfully." },
+      });
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+      setErrorMessage("An error occurred. Please try again.");
+    }
+  };
 
   if (errorMessage) {
     return <p style={{ color: "red" }}>{errorMessage}</p>;
@@ -47,6 +69,26 @@ const ProductDetail = () => {
         <p>{product.descripcion}</p>
         <p>Price: ${product.precio}</p>
         <p>Stock: {product.stock}</p>
+
+        {user && !user.roles.includes("ROLE_ADMIN") && (
+          <div className="add-to-cart-container">
+            <label htmlFor="cantidad">Quantity:</label>
+            <input
+              type="number"
+              id="cantidad"
+              value={cantidad}
+              onChange={(e) => setCantidad(e.target.value)}
+              min="1"
+              max={product.stock}
+              className="quantity-input"
+            />
+            <button onClick={handleAddToCart} className="add-to-cart-button">
+              Add to Cart
+            </button>
+          </div>
+        )}
+
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </div>
     </div>
   );
