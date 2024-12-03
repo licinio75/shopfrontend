@@ -18,7 +18,11 @@ const Cart = () => {
         setCartData(response.data);
       } catch (error) {
         console.error("Error fetching cart items:", error);
-        setErrorMessage("An unexpected error occurred. Please try again.");
+        if (error.response && error.response.status === 400 && error.response.data === 'Carrito no encontrado') {
+          setErrorMessage("You have no items in your shopping cart.");
+        } else {
+          setErrorMessage("An unexpected error occurred. Please try again.");
+        }
       }
     };
 

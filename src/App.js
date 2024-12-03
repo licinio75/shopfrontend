@@ -1,4 +1,7 @@
 import "./App.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 import React, { useContext, useEffect } from "react";
 import {
   BrowserRouter as Router,

@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
-import Navbar from "./Navbar";
-import "../App.css";
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import Slider from 'react-slick';
+import '../App.css';
 
 const ProductDetail = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const [cantidad, setCantidad] = useState(1); // Estado para la cantidad
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -22,8 +22,8 @@ const ProductDetail = () => {
         );
         setProduct(response.data);
       } catch (error) {
-        console.error("Error fetching product:", error);
-        setErrorMessage("An unexpected error occurred. Please try again.");
+        console.error('Error fetching product:', error);
+        setErrorMessage('An unexpected error occurred. Please try again.');
       }
     };
 
@@ -40,37 +40,53 @@ const ProductDetail = () => {
         }
       );
 
-      navigate("/cart", {
-        state: { message: "Product added to cart successfully." },
+      navigate('/cart', {
+        state: { message: 'Product added to cart successfully.' },
       });
     } catch (error) {
-      console.error("Error adding product to cart:", error);
-      setErrorMessage("An error occurred. Please try again.");
+      console.error('Error adding product to cart:', error);
+      setErrorMessage('An error occurred. Please try again.');
     }
   };
 
   if (errorMessage) {
-    return <p style={{ color: "red" }}>{errorMessage}</p>;
+    return <p style={{ color: 'red' }}>{errorMessage}</p>;
   }
 
   if (!product) {
     return <div>Loading...</div>;
   }
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
   return (
-    <div>
-      <div className="product-detail">
+    <div className="product-detail">
+      <div className="product-images">
+        <Slider {...settings}>
+          {product.imagenes.map((image, index) => (
+            <div key={index}>
+              <img
+                src={image}
+                alt={product.nombre}
+                className="d-block w-100 carousel-img"
+              />
+            </div>
+          ))}
+        </Slider>
+      </div>
+      <div className="product-info">
         <h2>{product.nombre}</h2>
-        <img
-          src={`data:image/jpeg;base64,${product.imagen}`}
-          alt={product.nombre}
-          className="product-image"
-        />
         <p>{product.descripcion}</p>
         <p>Price: ${product.precio}</p>
         <p>Stock: {product.stock}</p>
 
-        {user && !user.roles.includes("ROLE_ADMIN") && (
+        {user && !user.roles.includes('ROLE_ADMIN') && (
           <div className="add-to-cart-container">
             <label htmlFor="cantidad">Quantity:</label>
             <input
@@ -88,7 +104,7 @@ const ProductDetail = () => {
           </div>
         )}
 
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       </div>
     </div>
   );

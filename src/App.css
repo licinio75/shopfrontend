@@ -248,9 +248,8 @@ h2 {
   font-weight: bold;
 }
 
-/* src/App.css */
 .dropzone {
-  border: 2px dashed #007bff;
+  border: 2px dashed #007BFF;
   padding: 20px;
   text-align: center;
   cursor: pointer;
@@ -261,8 +260,49 @@ h2 {
   font-size: 16px;
 }
 
-.preview {
+.previews {
+  display: flex;
+  gap: 10px;
   margin-top: 20px;
+}
+
+.preview {
   max-width: 100px;
   max-height: 100px;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.product-images {
+  flex: 1;
+  max-width: 300px; /* Ajusta el tamaño máximo según tus necesidades */
+}
+
+.product-info {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.add-to-cart-container {
+  margin-top: 20px;
+}
+
+.quantity-input {
+  width: 60px;
+  margin-right: 10px;
+}
+
+.carousel-img {
+  max-height: 300px;
+  object-fit: cover;
+  width: 100%;
+  display: block;
+  margin: 0 auto;
 }

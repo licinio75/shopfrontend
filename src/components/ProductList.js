@@ -16,9 +16,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/productos/list"
-        );
+        const response = await axios.get("http://localhost:8080/api/productos/list");
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -33,30 +31,29 @@ const ProductList = () => {
   };
 
   return (
-    <div>
-      <div className="product-list">
-        {message && <p className="message">{message}</p>}
-        <h2>Product List</h2>
-        <ul>
-          {products.map((product) => (
-            <li
-              key={product.id}
-              className="product-item"
-              onClick={() => handleProductClick(product.id)}
-            >
-              <img
-                src={`data:image/jpeg;base64,${product.imagen}`}
-                alt={product.nombre}
-                className="product-image"
-              />
-              <div className="product-details">
-                <h3>{product.nombre}</h3>
-                <p>Price: ${product.precio}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className="product-list">
+      {message && <p className="message">{message}</p>}
+      <h2>Product List</h2>
+      <ul>
+        {products.map((product) => (
+          <li key={product.id} className="product-item" onClick={() => handleProductClick(product.id)}>
+            <img
+              src={product.imagenes[0]} // Mostrar la primera imagen del listado de imágenes
+              alt={product.nombre}
+              className="product-image"
+            />
+            <div className="product-details">
+              <h3>{product.nombre}</h3>
+              <p>Price: ${product.precio}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      {user && user.roles.includes("ROLE_ADMIN") && (
+        <button onClick={() => navigate("/add-product")} className="add-product-button">
+          Add Product
+        </button>
+      )}
     </div>
   );
 };

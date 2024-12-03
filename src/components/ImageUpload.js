@@ -1,13 +1,17 @@
-// src/components/ImageUpload.js
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
+import '../App.css';
 
-const ImageUpload = ({ onFileChange, preview }) => {
+const ImageUpload = ({ onFilesChange, previews }) => {
   const onDrop = useCallback((acceptedFiles) => {
-    onFileChange(acceptedFiles[0]);
-  }, [onFileChange]);
+    onFilesChange(acceptedFiles);
+  }, [onFilesChange]);
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, accept: 'image/*' });
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: 'image/*',
+    multiple: true, // Permitir múltiples archivos
+  });
 
   return (
     <div {...getRootProps()} className="dropzone">
@@ -17,7 +21,11 @@ const ImageUpload = ({ onFileChange, preview }) => {
       ) : (
         <p>Drag 'n' drop some files here, or click to select files</p>
       )}
-      {preview && <img src={preview} alt="Preview" className="preview" />}
+      <div className="previews">
+        {previews.map((preview, index) => (
+          <img key={index} src={preview} alt={`Preview ${index}`} className="preview" />
+        ))}
+      </div>
     </div>
   );
 };
